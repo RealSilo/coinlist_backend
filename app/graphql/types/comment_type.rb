@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Types::CommentType = GraphQL::ObjectType.define do
   name 'comment'
   description 'comment'

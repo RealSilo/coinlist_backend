@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Types::ProfileType = GraphQL::ObjectType.define do
   name 'profile'
   description 'profile'

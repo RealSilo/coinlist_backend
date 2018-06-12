@@ -4,6 +4,7 @@ class CreateCoins < ActiveRecord::Migration[5.2]
       t.string :symbol, null: false
       t.string :name, null: false
       t.string :currency_type, null: false
+      t.string :image
 
       t.index :symbol, unique: true
 

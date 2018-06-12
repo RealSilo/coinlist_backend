@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class GraphqlController < ApplicationController
+  # rubocop:disable Metrics/MethodLength
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -7,16 +10,22 @@ class GraphqlController < ApplicationController
       # Query context goes here, for example:
       # current_user: current_user,
     }
-    result = CoinlistSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = CoinlistSchema.execute(
+      query,
+      variables: variables,
+      context: context,
+      operation_name: operation_name
+    )
     render json: result
   end
+  # rubocop:enable Metrics/MethodLength
 
-  def nothing
-  end
+  def nothing; end
 
   private
 
   # Handle form data, JSON body, or a blank value
+  # rubocop:disable Metrics/MethodLength
   def ensure_hash(ambiguous_param)
     case ambiguous_param
     when String
@@ -33,4 +42,5 @@ class GraphqlController < ApplicationController
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end

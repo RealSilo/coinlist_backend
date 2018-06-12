@@ -10,17 +10,20 @@ COINS = [
   {
     name: 'Bitcoin',
     symbol: 'BTC',
-    type: 'crypto'
+    type: 'crypto',
+    image: 'https://s3-us-west-2.amazonaws.com/coinlistsilo/static/bitcoin.jpeg'
   },
   {
     name: 'Ethereum',
     symbol: 'ETH',
-    type: 'crypto'
+    type: 'crypto',
+    image: 'https://s3-us-west-2.amazonaws.com/coinlistsilo/static/ether.png'
   },
   {
     name: 'US Dollar',
     symbol: 'USD',
-    type: 'currency'
+    type: 'currency',
+    image: 'https://s3-us-west-2.amazonaws.com/coinlistsilo/static/dollar.png'
   }
 ]
 
@@ -29,7 +32,8 @@ COINS.each do |coin|
   coin = Coin.create(
     name: coin[:name],
     symbol: coin[:symbol],
-    currency_type: coin[:type]
+    currency_type: coin[:type],
+    image: coin[:image]
   )
   coin_ids[coin.symbol] = coin.id
 end
@@ -51,7 +55,8 @@ USERS.each do |email, coins|
     UserCoin.create(user_id: user.id, coin_id: coin_ids[coin])
     Comment.create(
       user_id: user.id,
-      coin_id: coin_ids[coin],
+      commentable_type: 'Coin',
+      commentable_id: coin_ids[coin],
       body: Faker::Lorem.sentence(3)
     )
   end

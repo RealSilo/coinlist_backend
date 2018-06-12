@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2018_06_03_022149) do
     t.string "symbol", null: false
     t.string "name", null: false
     t.string "currency_type", null: false
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["symbol"], name: "index_coins_on_symbol", unique: true
@@ -26,11 +27,12 @@ ActiveRecord::Schema.define(version: 2018_06_03_022149) do
 
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "coin_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
     t.string "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["coin_id"], name: "index_comments_on_coin_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -84,7 +86,6 @@ ActiveRecord::Schema.define(version: 2018_06_03_022149) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "comments", "coins"
   add_foreign_key "comments", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_coins", "coins"

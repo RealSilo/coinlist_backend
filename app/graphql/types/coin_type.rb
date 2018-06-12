@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Types::CoinType = GraphQL::ObjectType.define do
   name 'coin'
   description 'coin'
