@@ -7,5 +7,7 @@ Types::CommentType = GraphQL::ObjectType.define do
   field :id, !types.Int
   field :body, !types.String
   field :user, Types::UserType
-  field :coin, !types[Types::CoinType]
+  field :commentable, Types::CommentableType do
+    resolve -> (obj, args, ctx) { obj.commentable }
+  end
 end

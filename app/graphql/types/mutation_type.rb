@@ -3,11 +3,22 @@
 Types::MutationType = GraphQL::ObjectType.define do
   name 'Mutation'
 
-  # TODO: Remove me
-  field :testField, types.String do
-    description 'An example field added by the generator'
-    resolve ->(_obj, _args, _ctx) {
-      'Hello World!'
+  field :createComment, Types::CommentType do
+    argument :body, !types.String
+    argument :commentable_id, !types.ID
+    argument :commentable_type, !types.String
+    description 'Create a polymorphic comment'
+    resolve ->(_obj, args, ctx) {
+      begin
+        Comment.create!(
+          body: args[:body],
+          commentable_id: args[:commentable_id],
+          commentable_type: args[:commentable_type],
+          user_id: 1
+        )
+      rescue => e
+        GraphQL::ExecutionError.new(e)
+      end
     }
   end
 end
